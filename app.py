@@ -35,9 +35,9 @@ class SubmittedApp():
             self.model = torch.load("model.pt")
         except:
             self.model = Model()
-            self.mode = "adam"
+            self.opt_type = "adam"
             self.criterion = torch.nn.MSELoss(reduction='mean')
-            if self.mode == "adam":
+            if self.opt_type == "adam":
                 self.lr = 0.01
                 self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr)
             else:
@@ -49,8 +49,16 @@ class SubmittedApp():
 
             # Tensorboard의 주요 객체인 Writer
             # log path 에 해당하는 폴더를 만든다.
-            log_dir = "./tensorboard/log/{}".format(self.timestamp)
+            log_dir = "./logs/{}".format(self.timestamp)
             self.writer = SummaryWriter(log_dir)
+
+            
+            f = open("{}/info.txt".format(log_dir), 'w')
+            f.write("criterion : {}".format("MSE"))
+            f.write("optimizer : {}".format(self.opt_type))
+            f.write("learning rate : {}".format(self.lr))
+            f.write("epochs : {}".format(self.epochs))
+            f.close()
             self.train(self.dataset['x_train'], self.dataset['y_train'])
             self.writer.add_graph(self.model, self.dataset['x_train'])
         
@@ -69,13 +77,13 @@ class SubmittedApp():
             loss.backward()
             self.optimizer.step()
             if (epoch + 1) % (self.epochs//10) == 0: # 매 10 iteration마다
-                self.writer.add_scalar('{}/{}/loss:{}'.format(self.mode, self.lr), loss.item(), epoch)
+                self.writer.add_scalar('loss', loss.item(), epoch)
                 #self.writer.add_scalar('learning_rate', self.lr , epoch)
                 for i, param in enumerate(self.model.parameters()):
                     weight = np.array(param.data.numpy().reshape((1,)))
-                    self.writer.add_histogram('{}/{}/weight_hist/{}'.format(self.mode, self.lr, i), weight, epoch)
-                    self.writer.add_scalar('{}/{}/weight_val/{}'.format(self.mode, self.lr, i), weight, epoch)
-                    #self.writer.add_scalar('{}/{}/weight_val/total:{}'.format(self.mode, self.lr, i, self.timestamp), weight, epoch)
+                    self.writer.add_histogram('weight_hist/{}'.format(i), weight, epoch)
+                    self.writer.add_scalar('weight_val/{}'.format(i), weight, epoch)
+                    #self.writer.add_scalar('weight_val/total/{}'.format(i), weight, epoch)
 
     def metric(self, inferred_tensor: torch.Tensor, ground_truth: torch.Tensor) -> torch.Tensor:
         return torch.mean((inferred_tensor - ground_truth)**2)

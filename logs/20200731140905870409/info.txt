@@ -1,0 +1,1 @@
+criterion : MSEoptimizer : adamlearning rate : 0.01epochs : 20000
