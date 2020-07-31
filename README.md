@@ -4,17 +4,17 @@ Created: Jul 31, 2020 2:13 PM
 Last Edited Time: Jul 31, 2020 2:49 PM
 
 # Overview
-
-- Enviroment
+1. [Enviroment](#ch1)
     - Intall
-- Basic Settings
+2. [Basic Settings](#ch2)
     - Logs Dir Structure
     - Init Code
     - Execution
-- Functions
-- Practice
+3. [Functions](#ch3)
+4. [Practice](#ch4)
 
-## Enviroment
+
+## 1. Enviroment <a id="ch1"></a>
 
 ```python
 pip install torch
@@ -24,7 +24,7 @@ pip install torch
 pip install tensorboard
 ```
 
-## Basic Settings
+## 2. Basic Settings <a id="ch2"></a>
 
 ### Log Directory
 
@@ -72,7 +72,7 @@ TensorBoard 2.3.0 at http://localhost:6006/ (Press CTRL+C to quit)
 
 *No information is displayed because the model has not been trained.
 
-## Functions
+## 3. Functions <a id="ch3"></a>
 
 [https://pytorch.org/docs/stable/tensorboard.html](https://pytorch.org/docs/stable/tensorboard.html)
 
@@ -108,7 +108,7 @@ TensorBoard 2.3.0 at http://localhost:6006/ (Press CTRL+C to quit)
 
     ![](./img/04.png)
 
-## Practice
+## 4. Practice <a id="ch4"></a>
 
 [https://github.com/chjinny/tensorboard_torch](https://github.com/chjinny/tensorboard_torch)
 
@@ -141,15 +141,14 @@ terminal 2 : tensor board
     ![](./img/08.png)
 
 ## Refs
+- Tensorboard
 
-https://tutorials.pytorch.kr/intermediate/tensorboard_tutorial.html
+    https://tutorials.pytorch.kr/intermediate/tensorboard_tutorial.html
+    https://seongkyun.github.io/others/2019/05/11/pytorch_tensorboard/
+    https://pytorch.org/docs/stable/tensorboard.html
+    https://keep-steady.tistory.com/14
+    https://medium.com/trackin-datalabs/tensorboard-%EA%B0%84%EB%8B%A8%ED%9E%88-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0-18a4fda2efb1
+    https://wikidocs.net/45115
+- Markdown
 
-https://seongkyun.github.io/others/2019/05/11/pytorch_tensorboard/
-
-https://pytorch.org/docs/stable/tensorboard.html
-
-https://keep-steady.tistory.com/14
-
-https://medium.com/trackin-datalabs/tensorboard-%EA%B0%84%EB%8B%A8%ED%9E%88-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0-18a4fda2efb1
-
-https://wikidocs.net/45115
+    http://taewan.kim/post/markdown/#chapter-1
