@@ -30,7 +30,7 @@ class SubmittedApp():
         }
 
     def __init__(self):
-        self.timestamp = datetime.datetime.today().strftime('%Y%m%d%H%M%S%f')
+        self.timestamp = datetime.datetime.today().strftime('%Y%m%d%H%M%S')
         try:
             self.model = torch.load("model.pt")
         except:
@@ -52,16 +52,14 @@ class SubmittedApp():
             log_dir = "./logs/{}".format(self.timestamp)
             self.writer = SummaryWriter(log_dir)
 
-            
             f = open("{}/info.txt".format(log_dir), 'w')
-            f.write("criterion : {}".format("MSE"))
-            f.write("optimizer : {}".format(self.opt_type))
-            f.write("learning rate : {}".format(self.lr))
-            f.write("epochs : {}".format(self.epochs))
+            f.write("criterion : {}\n".format("MSE"))
+            f.write("optimizer : {}\n".format(self.opt_type))
+            f.write("learning rate : {}\n".format(self.lr))
+            f.write("epochs : {}\n".format(self.epochs))
             f.close()
             self.train(self.dataset['x_train'], self.dataset['y_train'])
             self.writer.add_graph(self.model, self.dataset['x_train'])
-        
 
     def run(self, input_tensor: torch.Tensor) -> torch.Tensor:
         print("input size : ({}, {})".format(input_tensor.shape[0], input_tensor.shape[1]))
@@ -76,7 +74,7 @@ class SubmittedApp():
             self.optimizer.zero_grad()
             loss.backward()
             self.optimizer.step()
-            if (epoch + 1) % (self.epochs//10) == 0: # 매 10 iteration마다
+            if (epoch + 1) % (self.epochs//10) == 0:
                 self.writer.add_scalar('loss', loss.item(), epoch)
                 #self.writer.add_scalar('learning_rate', self.lr , epoch)
                 for i, param in enumerate(self.model.parameters()):

@@ -1,0 +1,4 @@
+criterion : MSE
+optimizer : adam
+learning rate : 0.01
+epochs : 20000
